@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: nps-survey-api
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node dist/main.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: postgresql://deeploomadmin:root%234040@deeploom.postgres.database.azure.com:5432/clientsatisfactionsurvey?sslmode=require
+      - key: JWT_SECRET
+        value: nps-survey-super-secret-jwt-key-2024
+      - key: JWT_EXPIRES_IN
+        value: 15m
+      - key: JWT_REFRESH_SECRET
+        value: nps-survey-refresh-secret-key-2024
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 7d
